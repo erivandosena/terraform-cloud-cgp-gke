@@ -32,17 +32,13 @@ resource "google_container_cluster" "primary" {
   location           = var.zone
   initial_node_count = 1
   min_master_version = data.google_container_engine_versions.gke_versions.latest_master_version
+  deletion_protection = false
 
   # Enable the new Stackdriver Kubernetes Monitoring/Logging features
   monitoring_service = "monitoring.googleapis.com/kubernetes"
   logging_service    = "logging.googleapis.com/kubernetes"
 
   master_auth {
-    # Best practice
-    # Disable basic auth
-    # Default behavior for new clusters in GKE 1.12
-    username = ""
-    password = ""
 
     client_certificate_config {
       # Best practice
